@@ -6,10 +6,13 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
 public class DBCHBot {
-    private static String token;
+    public static String token;
 
-    public DBCHBot() {
+    public static String botId;
+
+    private DBCHBot() {
         token = System.getenv("DISCORD_BOT_TOKEN");
+        botId = System.getenv("DISCORD_BOT_ID");
         JDABuilder builder = JDABuilder.createDefault(token);
 
         builder
@@ -21,6 +24,6 @@ public class DBCHBot {
 
     public static void main(String[] args) {
         new DBCHBot();
-        new ServiceCommands(token);
+        new ServiceCommands();
     }
 }

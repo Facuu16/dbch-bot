@@ -1,5 +1,6 @@
 package com.facuu16.dbchbot.commands;
 
+import com.facuu16.dbchbot.DBCHBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -16,8 +17,8 @@ import java.util.Collections;
 import java.util.Random;
 
 public class ServiceCommands extends ListenerAdapter {
-    public ServiceCommands(String token) {
-        JDA bot = JDABuilder.createLight(token, Collections.emptyList())
+    public ServiceCommands() {
+        JDA bot = JDABuilder.createLight(DBCHBot.token, Collections.emptyList())
                 .addEventListeners(this)
                 .build();
 
@@ -45,9 +46,8 @@ public class ServiceCommands extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         User user = event.getUser();
-        String command = event.getName();
 
-        switch (command) {
+        switch (event.getName()) {
             case "ofrecer-servicio": {
                 String title = event.getOption("title").getAsString();
                 String description = event.getOption("description").getAsString();
@@ -95,18 +95,18 @@ public class ServiceCommands extends ListenerAdapter {
 
                 event.getChannel().retrieveMessageById(id).queue(
                         message -> {
-                            User author = message.getAuthor();
+                            String authorId = message.getAuthor().getId();
 
-                            if (!author.getId().equals("1029572096310911047")) {
+                            if (!authorId.equals(DBCHBot.botId)) {
                                 event.reply("¡La ID proporcionada no pertenece al DBCH Bot!").setEphemeral(true).queue();
                                 return;
                             }
 
                             MessageEmbed embed = message.getEmbeds().get(0);
-                            MessageEmbed.AuthorInfo authorInfo = embed.getAuthor();
-                            String authorName = authorInfo.getName();
+                            String embedName = embed.getAuthor().getName();
+                            String userName = event.getUser().getName();
 
-                            if (!authorName.startsWith(event.getUser().getName())) {
+                            if (!embedName.startsWith(userName)) {
                                 event.reply("¡No eres el dueño del servicio!").setEphemeral(true).queue();
                                 return;
                             }
