@@ -1,6 +1,6 @@
 package com.facuu16.dbchbot;
 
-import com.facuu16.dbchbot.commands.ShopCommands;
+import com.facuu16.dbchbot.commands.ServiceCommands;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -21,6 +21,6 @@ public class DBCHBot {
 
     public static void main(String[] args) {
         new DBCHBot();
-        new ShopCommands(token);
+        new ServiceCommands(token);
     }
 }

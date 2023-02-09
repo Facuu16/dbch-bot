@@ -15,8 +15,8 @@ import java.math.BigInteger;
 import java.util.Collections;
 import java.util.Random;
 
-public class ShopCommands extends ListenerAdapter {
-    public ShopCommands(String token) {
+public class ServiceCommands extends ListenerAdapter {
+    public ServiceCommands(String token) {
         JDA bot = JDABuilder.createLight(token, Collections.emptyList())
                 .addEventListeners(this)
                 .build();
