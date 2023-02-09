@@ -9,7 +9,7 @@ public class DBCHBot {
     private static String token;
 
     public DBCHBot() {
-        token = "MTAyOTU3MjA5NjMxMDkxMTA0Nw.GP61OT._ecFjAn0RcxAnBYF5H8I9VEwXxOiXJEn-WmCWA";
+        token = System.getenv("DISCORD_BOT_TOKEN");
         JDABuilder builder = JDABuilder.createDefault(token);
 
         builder
