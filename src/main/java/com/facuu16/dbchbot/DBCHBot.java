@@ -13,7 +13,7 @@ public class DBCHBot {
     private DBCHBot() {
         token = System.getenv("DISCORD_BOT_TOKEN");
         botId = System.getenv("DISCORD_BOT_ID");
-        JDABuilder builder = JDABuilder.createDefault(token);
+        final JDABuilder builder = JDABuilder.createDefault(token);
 
         builder
                 .setStatus(OnlineStatus.IDLE)

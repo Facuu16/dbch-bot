@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class ServiceCommands extends ListenerAdapter {
     public ServiceCommands() {
-        JDA bot = JDABuilder.createLight(DBCHBot.token, Collections.emptyList())
+        final JDA bot = JDABuilder.createLight(DBCHBot.token, Collections.emptyList())
                 .addEventListeners(this)
                 .build();
 
@@ -45,16 +45,16 @@ public class ServiceCommands extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        User user = event.getUser();
+        final User user = event.getUser();
 
         switch (event.getName()) {
             case "ofrecer-servicio": {
-                String title = event.getOption("title").getAsString();
-                String description = event.getOption("description").getAsString();
-                String details = event.getOption("details").getAsString();
-                String price = event.getOption("price").getAsString();
+                final String title = event.getOption("title").getAsString();
+                final String description = event.getOption("description").getAsString();
+                final String details = event.getOption("details").getAsString();
+                final String price = event.getOption("price").getAsString();
 
-                EmbedBuilder builder = new EmbedBuilder()
+                final EmbedBuilder builder = new EmbedBuilder()
                         .setTitle(title)
                         .setAuthor(user.getName() + " está ofreciendo un servicio/producto", null, user.getAvatarUrl())
                         .addField("**Descripción**", description, false)
@@ -70,12 +70,12 @@ public class ServiceCommands extends ListenerAdapter {
             }
 
             case "solicitar-servicio": {
-                String title = event.getOption("title").getAsString();
-                String description = event.getOption("description").getAsString();
-                String details = event.getOption("details").getAsString();
-                String price = event.getOption("budget").getAsString();
+                final String title = event.getOption("title").getAsString();
+                final String description = event.getOption("description").getAsString();
+                final String details = event.getOption("details").getAsString();
+                final String price = event.getOption("budget").getAsString();
 
-                EmbedBuilder builder = new EmbedBuilder()
+                final EmbedBuilder builder = new EmbedBuilder()
                         .setTitle(title)
                         .setAuthor(user.getName() + " está solicitando un servicio/producto", null, user.getAvatarUrl())
                         .addField("**Descripción**", description, false)
@@ -91,20 +91,20 @@ public class ServiceCommands extends ListenerAdapter {
             }
 
             case "eliminar-servicio": {
-                String id = event.getOption("id").getAsString();
+                final String id = event.getOption("id").getAsString();
 
                 event.getChannel().retrieveMessageById(id).queue(
                         message -> {
-                            String authorId = message.getAuthor().getId();
+                            final String authorId = message.getAuthor().getId();
 
                             if (!authorId.equals(DBCHBot.botId)) {
                                 event.reply("¡La ID proporcionada no pertenece al DBCH Bot!").setEphemeral(true).queue();
                                 return;
                             }
 
-                            MessageEmbed embed = message.getEmbeds().get(0);
-                            String embedName = embed.getAuthor().getName();
-                            String userName = event.getUser().getName();
+                            final MessageEmbed embed = message.getEmbeds().get(0);
+                            final String embedName = embed.getAuthor().getName();
+                            final String userName = event.getUser().getName();
 
                             if (!embedName.startsWith(userName)) {
                                 event.reply("¡No eres el dueño del servicio!").setEphemeral(true).queue();
@@ -122,9 +122,9 @@ public class ServiceCommands extends ListenerAdapter {
     }
 
     public BigInteger getId() {
-        BigInteger min = new BigInteger("000000000000000000");
-        BigInteger max = new BigInteger("999999999999999999");
-        BigInteger randomBigInt = min.add(new BigInteger(max.bitLength(), new Random()));
+        final BigInteger min = new BigInteger("000000000000000000");
+        final BigInteger max = new BigInteger("999999999999999999");
+        final BigInteger randomBigInt = min.add(new BigInteger(max.bitLength(), new Random()));
 
         return randomBigInt.mod(max.subtract(min).add(BigInteger.ONE)).add(min);
     }
