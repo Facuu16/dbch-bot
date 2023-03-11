@@ -15,6 +15,7 @@ import java.awt.*;
 import java.math.BigInteger;
 import java.util.Collections;
 import java.util.Random;
+import java.util.UUID;
 
 public class ServiceCommands extends ListenerAdapter {
     public ServiceCommands() {
@@ -62,7 +63,7 @@ public class ServiceCommands extends ListenerAdapter {
                         .addField("**Precio**", price, false)
                         .setColor(new Color(255, 188, 71 ))
                         .setThumbnail("https://imgur.com/TFKvsf5.png")
-                        .setFooter("ID: " + getId());
+                        .setFooter("ID: " + UUID.randomUUID());
 
                 event.getChannel().sendMessageEmbeds(builder.build()).queue();
                 event.reply("¡Añadido correctamente al mercado!").setEphemeral(true).queue();
@@ -83,7 +84,7 @@ public class ServiceCommands extends ListenerAdapter {
                         .addField("**Presupuesto**", price, false)
                         .setColor(new Color(255, 64, 30))
                         .setThumbnail("https://imgur.com/5NkvmB1.png")
-                        .setFooter("ID: " + getId());
+                        .setFooter("ID: " + UUID.randomUUID());
 
                 event.getChannel().sendMessageEmbeds(builder.build()).queue();
                 event.reply("¡Añadido correctamente al mercado!").setEphemeral(true).queue();
@@ -119,13 +120,5 @@ public class ServiceCommands extends ListenerAdapter {
                 );
             }
         }
-    }
-
-    public BigInteger getId() {
-        final BigInteger min = new BigInteger("000000000000000000");
-        final BigInteger max = new BigInteger("999999999999999999");
-        final BigInteger randomBigInt = min.add(new BigInteger(max.bitLength(), new Random()));
-
-        return randomBigInt.mod(max.subtract(min).add(BigInteger.ONE)).add(min);
     }
 }
